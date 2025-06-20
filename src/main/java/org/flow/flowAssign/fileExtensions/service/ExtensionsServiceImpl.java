@@ -1,14 +1,13 @@
-package org.flow.flowAssign.file.service;
+package org.flow.flowAssign.fileExtensions.service;
 
-import org.flow.flowAssign.file.dto.ExtensionsDTO;
-import org.flow.flowAssign.file.entity.Extensions;
-import org.flow.flowAssign.file.repository.ExtensionsRepository;
+import org.flow.flowAssign.fileExtensions.dto.ExtensionsDTO;
+import org.flow.flowAssign.fileExtensions.entity.Extensions;
+import org.flow.flowAssign.fileExtensions.repository.ExtensionsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ExtensionsServiceImpl implements ExtensionsService{

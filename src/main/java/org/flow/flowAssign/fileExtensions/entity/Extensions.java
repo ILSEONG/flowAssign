@@ -1,11 +1,11 @@
-package org.flow.flowAssign.file.entity;
+package org.flow.flowAssign.fileExtensions.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
-import org.flow.flowAssign.file.dto.ExtensionsDTO;
+import org.flow.flowAssign.fileExtensions.dto.ExtensionsDTO;
 
 @Entity
 @Getter

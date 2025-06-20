@@ -1,8 +1,7 @@
-package org.flow.flowAssign.file.service;
+package org.flow.flowAssign.fileExtensions.service;
 
 
-import org.flow.flowAssign.file.dto.ExtensionsDTO;
-import org.flow.flowAssign.file.entity.Extensions;
+import org.flow.flowAssign.fileExtensions.dto.ExtensionsDTO;
 
 import java.util.List;
 

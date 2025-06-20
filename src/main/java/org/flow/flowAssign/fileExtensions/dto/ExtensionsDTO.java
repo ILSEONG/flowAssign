@@ -1,10 +1,10 @@
-package org.flow.flowAssign.file.dto;
+package org.flow.flowAssign.fileExtensions.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.flow.flowAssign.file.entity.Extensions;
+import org.flow.flowAssign.fileExtensions.entity.Extensions;
 
 @Data
 @Builder
