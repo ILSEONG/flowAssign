@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>파일 업로드</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .nav-link {
+            @apply text-blue-600 hover:text-blue-800 hover:underline;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileInput = document.getElementById('file-upload-input');
+            const fileListDisplay = document.getElementById('file-list-display');
+            const uploadForm = document.getElementById('upload-form');
+            const statusMessage = document.getElementById('status-message');
+
+            if (fileInput) {
+                fileInput.addEventListener('change', function(event) {
+                    if (!fileListDisplay) return;
+                    fileListDisplay.innerHTML = '';
+                    statusMessage.textContent = '';
+
+                    const files = event.target.files;
+                    if (files.length === 0) {
+                        const p = document.createElement('p');
+                        p.className = 'text-gray-500';
+                        p.textContent = '선택된 파일이 없습니다.';
+                        fileListDisplay.appendChild(p);
+                        return;
+                    }
+
+                    const ul = document.createElement('ul');
+                    ul.className = 'list-disc pl-5 space-y-1 text-gray-700';
+
+                    for (let i = 0; i < files.length; i++) {
+                        const file = files[i];
+                        const li = document.createElement('li');
+                        li.textContent = `${file.name} (${formatFileSize(file.size)}, ${file.type || '알 수 없음'})`;
+                        ul.appendChild(li);
+                    }
+                    fileListDisplay.appendChild(ul);
+                });
+            }
+
+            if (uploadForm) {
+                uploadForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+
+                    if (!fileInput || fileInput.files.length === 0) {
+                        statusMessage.textContent = '업로드할 파일을 선택해주세요.';
+                        statusMessage.className = 'mt-4 text-red-600';
+                        return;
+                    }
+
+                    statusMessage.textContent = '파일을 업로드 중입니다... (시뮬레이션)';
+                    statusMessage.className = 'mt-4 text-blue-600';
+
+                    setTimeout(() => {
+                        statusMessage.textContent = `총 ${fileInput.files.length}개의 파일이 성공적으로 "업로드"되었습니다. (실제 서버 전송은 구현되지 않음)`;
+                        statusMessage.className = 'mt-4 text-green-600';
+                    }, 2000);
+                });
+            }
+
+            function formatFileSize(bytes, decimals = 2) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const dm = decimals < 0 ? 0 : decimals;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+            }
+        });
+    </script>
+</head>
+<body class="flex flex-col justify-center items-center min-h-screen bg-gray-100 p-4 sm:p-8">
+
+<nav class="mb-4">
+    <a href="extensionSetting" class="nav-link"> 파일 확장자 설정 페이지로 이동</a>
+</nav>
+
+<div class="bg-white p-6 sm:p-8 rounded-lg shadow-md w-full max-w-lg">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">파일 업로드</h1>
+
+    <form id="upload-form" enctype="multipart/form-data">
+        <div class="mb-6">
+            <label for="file-upload-input" class="block text-sm font-medium text-gray-700 mb-2">파일 선택:</label>
+            <input
+                    type="file"
+                    id="file-upload-input"
+                    name="files[]"
+                    multiple
+                    class="block w-full text-sm text-gray-500
+                           file:mr-4 file:py-2 file:px-4
+                           file:rounded-md file:border-0
+                           file:text-sm file:font-semibold
+                           file:bg-blue-50 file:text-blue-700
+                           hover:file:bg-blue-100"
+            />
+        </div>
+
+        <div class="mb-6">
+            <h2 class="text-lg font-semibold text-gray-700 mb-2">선택된 파일:</h2>
+            <div id="file-list-display" class="p-3 border border-gray-200 rounded-md min-h-[80px] bg-gray-50">
+                <p class="text-gray-500">선택된 파일이 없습니다.</p>
+            </div>
+        </div>
+
+        <button
+                type="submit"
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-150"
+        >
+            업로드 시작
+        </button>
+    </form>
+
+    <div id="status-message" class="mt-4 text-center"></div>
+
+</div>
+
+</body>
+</html>

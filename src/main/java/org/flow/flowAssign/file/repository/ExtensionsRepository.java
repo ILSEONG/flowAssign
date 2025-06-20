@@ -9,24 +9,27 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ExtensionsRepository extends JpaRepository<Extensions, String> {
-    List<Extensions> findAll();
+    List<Extensions> findAllByOrderByNameAsc();
 
     @Modifying
     @Transactional
     @Query("UPDATE Extensions e SET e.isUsed = 'n' WHERE e.name = :name")
-    void updateIsUsedNByName(Extensions extensions);
+    void updateIsUsedNByName(@Param("name") String name);
 
     @Modifying
     @Transactional
     @Query("UPDATE Extensions e SET e.isUsed = 'y' WHERE e.name = :name")
-    void updateIsUsedYByName(Extensions extensions);
+    void updateIsUsedYByName(@Param("name") String name);
 
     @Modifying
     @Transactional
     @Query("DELETE Extensions e WHERE e.name = :extensionName")
     void deleteByName(@Param("extensionName") String extensionName);
 
+    @Query("SELECT e FROM Extensions e WHERE e.name = :name")
+    Extensions findByName(@Param("name") String name);
 }

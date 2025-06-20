@@ -20,7 +20,7 @@ public class ExtensionsServiceImpl implements ExtensionsService{
 
     @Override
     public List<ExtensionsDTO> findAll() {
-        List<Extensions> extensionList = extensionsRepository.findAll();
+        List<Extensions> extensionList = extensionsRepository.findAllByOrderByNameAsc();
         List<ExtensionsDTO> extensionsDTOList = new ArrayList<>();
         for (Extensions extension : extensionList) {
             ExtensionsDTO extensionsDTO = extension.toDto();
@@ -38,19 +38,21 @@ public class ExtensionsServiceImpl implements ExtensionsService{
 
     @Override
     public ExtensionsDTO findByName(String name) {
-        return extensionsRepository.findById(name).get().toDto();
+        extensions = extensionsRepository.findByName(name);
+        if(extensions == null) return null;
+        return extensions.toDto();
     }
 
     @Override
     public void updateUnChecked(ExtensionsDTO extensionsDTO) {
         extensions = extensionsDTO.toEntity();
-        extensionsRepository.updateIsUsedNByName(extensions);
+        extensionsRepository.updateIsUsedNByName(extensions.getName());
     }
 
     @Override
     public void updateChecked(ExtensionsDTO extensionsDTO) {
         extensions = extensionsDTO.toEntity();
-        extensionsRepository.updateIsUsedYByName(extensions);
+        extensionsRepository.updateIsUsedYByName(extensions.getName());
     }
 
     @Override
