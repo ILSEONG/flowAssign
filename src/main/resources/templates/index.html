@@ -48,7 +48,11 @@
                 if(name == ""){
                     alert("추가하고 싶은 확장자 명을 입력해주세요");
                     return false;
+                }else if(name.length > 20){
+                    alert("확장자 명은 20글자를 넘길 수 없습니다.")
+                    return false;
                 }
+
                 // 1. 200기존에 custom이 200개가 넘는지 확인
                     $.ajax({
                         url:"/extensions",
