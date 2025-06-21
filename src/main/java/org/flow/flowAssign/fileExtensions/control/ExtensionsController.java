@@ -37,7 +37,6 @@ public class ExtensionsController {
         if(extensionsService.findByName(extensionsDTO.getName()) != null){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("이미 존재하는 확장자입니다.");
         }
-        System.out.println(extensionsService.findByName(extensionsDTO.getName()));
         try {
             extensionsService.save(extensionsDTO);
             return ResponseEntity.status(200).build();
